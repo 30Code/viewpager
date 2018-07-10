@@ -4,13 +4,13 @@ apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.yangwb1259883028'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 20180229
-        versionName "1.0.18"
+        versionCode 20180710
+        versionName "1.0.19"
     }
 
     buildTypes {
@@ -23,6 +23,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.github.yangwb1259883028:gridlayout:1.0.18'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.github.yangwb1259883028:gridlayout:1.0.19'
 }
