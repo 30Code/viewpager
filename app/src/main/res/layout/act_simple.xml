@@ -9,17 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <cn.linhome.lib.viewpager.SDGridViewPager
+        <cn.linhome.lib.viewpager.FGridViewPager
             android:id="@+id/vpg_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <cn.linhome.lib.viewpager.indicator.impl.PagerIndicator
-            android:id="@+id/view_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="5dp"/>
     </FrameLayout>
 
     <Button

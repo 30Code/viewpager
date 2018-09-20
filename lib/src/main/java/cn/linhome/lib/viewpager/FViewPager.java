@@ -24,15 +24,15 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SDViewPager extends ViewPager
+public class FViewPager extends ViewPager
 {
-    public SDViewPager(Context context)
+    public FViewPager(Context context)
     {
         super(context);
         init();
     }
 
-    public SDViewPager(Context context, AttributeSet attrs)
+    public FViewPager(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         init();
@@ -42,7 +42,7 @@ public class SDViewPager extends ViewPager
      * 是否锁住ViewPager，锁住后不能拖动
      */
     private boolean mIsLockPull = false;
-    private List<IPullCondition> mListCondition = new ArrayList<>();
+    private List<IPullCondition> mListCondition;
 
     private void init()
     {
@@ -79,6 +79,11 @@ public class SDViewPager extends ViewPager
         {
             return;
         }
+        if (mListCondition == null)
+        {
+            mListCondition = new ArrayList<>();
+        }
+
         if (!mListCondition.contains(condition))
         {
             mListCondition.add(condition);
@@ -92,72 +97,67 @@ public class SDViewPager extends ViewPager
      */
     public void removePullCondition(IPullCondition condition)
     {
-        if (condition == null)
+        if (condition == null || mListCondition == null)
         {
             return;
         }
-        if (mListCondition.contains(condition))
+        mListCondition.remove(condition);
+        if (mListCondition.isEmpty())
         {
-            mListCondition.remove(condition);
+            mListCondition = null;
         }
     }
 
-    private boolean validatePullCondition(MotionEvent event)
+    private boolean canPull(MotionEvent event)
     {
-        boolean canPull = true;
+        if (mListCondition == null || mListCondition.isEmpty())
+        {
+            return true;
+        }
+
         for (IPullCondition item : mListCondition)
         {
             if (!item.canPull(event))
             {
-                canPull = false;
-                break;
+                return false;
             }
         }
-        return canPull;
+
+        return true;
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev)
     {
-        if (!mIsLockPull)
+        if (mIsLockPull)
         {
-            try
-            {
-                if (validatePullCondition(ev))
-                {
-                    return super.onInterceptTouchEvent(ev);
-                } else
-                {
-                    return false;
-                }
-            } catch (IllegalArgumentException e)
-            {
-                e.printStackTrace();
-            }
+            return false;
         }
-        return false;
+
+        if (canPull(ev))
+        {
+            return super.onInterceptTouchEvent(ev);
+        } else
+        {
+            return false;
+        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-        if (!mIsLockPull)
+        if (mIsLockPull)
         {
-            try
-            {
-                if (validatePullCondition(event))
-                {
-                    return super.onTouchEvent(event);
-                } else
-                {
-                    return false;
-                }
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            return false;
         }
-        return false;
+
+        if (canPull(event))
+        {
+            return super.onTouchEvent(event);
+        } else
+        {
+            return false;
+        }
     }
 
     @Override
