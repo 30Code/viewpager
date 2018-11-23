@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 20180710
-        versionName "1.0.20"
+        versionCode 20181123
+        versionName "1.0.21"
     }
 
     buildTypes {
@@ -23,6 +23,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    compileOnly 'com.android.support:appcompat-v7:27.1.1'
     api 'com.github.yangwb1259883028:gridlayout:1.0.20'
 }
