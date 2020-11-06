@@ -18,11 +18,12 @@ package cn.linhome.lib.viewpager;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.drawable.Drawable;
-import android.support.v4.view.PagerAdapter;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import androidx.viewpager.widget.PagerAdapter;
 
 import cn.linhome.lib.gridlayout.FGridLayout;
 import cn.linhome.lib.viewpager.utils.FPageHelper;
